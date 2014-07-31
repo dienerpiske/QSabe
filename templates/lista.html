@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block sidebar %} <style type="text/css"> </style> {% endblock %}
+
+{% block content %}
+    <style type="text/css">
+        .main { margin-left: 25px; margin-top: 30px; }
+        .title { font-size: 1.4em; margin-top: 10px; border-bottom: 0px solid #ccc; padding-left: 4px; }
+        .last { border: 0px; }
+        .title a { text-decoration: none; }
+        .button { background: #999; color: white; padding: 4px; text-decoration: none; }
+
+        td { border-bottom: 1px solid #ccc; }
+        #list { border: 1px solid #ccc; width: 700px; }
+    </style>
+
+<div class="main">
+<!-- Seções  -->
+<div id="list">
+<table border="0" cellpadding="4" width="100%">
+    <tr>
+        <td></td>
+        <td>Respostas</td>
+        <td>Última Resposta</td>
+        <td></td>
+    </tr>
+
+    {% for questao in questoes %}
+    <tr>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"> <a href="{% url 'questao' questao.pk%}" >{{ questao.titulo }}</a>
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ questao.numPostagem }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {{ questao.ultimaPostagem}}</td>
+    </tr>
+
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

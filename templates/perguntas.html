@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block sidebar %} <style type="text/css"> </style> {% endblock %}
+
+{% block content %}
+    <style type="text/css">
+        .pagination { margin-top: 20px; margin-left: -20px; }
+        .main { margin-left: 25px; margin-top: 30px; width: 700px; }
+        .title { font-size: 1.4em; margin-top: 0px; padding-left: 4px; }
+        .last { border: 0px; }
+        .title a { text-decoration: none; }
+        .button { background: #999; color: white; padding: 4px; text-decoration: none; }
+        .buttont { background: #999; color: white; padding: 2px; text-decoration: none; }
+
+        td { border-bottom: 1px solid #ccc; }
+        #list { border: 1px solid #ccc; width: 700px; }
+        #new_topic { float: right; }
+    </style>
+
+ <div class="main">
+<!-- Perguntas  -->
+<a id="new_topic" class="buttont" href=
+"{% url 'postar' 'nova_pergunta' pk %}">Nova Pergunta</a>
+<br />
+<br />
+
+<div id="list">
+<table border="0" cellpadding="4" width="100%">
+    <tr>
+        <td>Perguntas</td>
+        <td>Respostas</td>
+        <td>Última resposta</td>
+        <td>Contexto</td>
+        <td></td>
+    </tr>
+
+    {% for pergunta in perguntas %}
+    <tr>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"><a href="{% url 'pergunta' pergunta.pk%}">{{ pergunta.titulo }}</a>
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ pergunta.numPostagem }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {{ pergunta.ultimaResposta|linebreaksbr }}</td>
+        <td> {% for tag in pergunta.tags.all %}
+                 <li> {{ tag.name }} </li>
+        {% endfor %}
+        </td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            <a class="button" href="{% url 'pergunta' pergunta.pk%}">VER</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+</div>
+{% endblock %}

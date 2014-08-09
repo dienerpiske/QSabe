@@ -1,10 +1,26 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.core.urlresolvers import reverse
-from QSabeApp.models import Questoes, Pergunta, Resposta, PerfilUsuario
-from taggit.models import Tag
-from QSabeApp import summarize
 import nltk
+from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.shortcuts import render
+from django.forms import ModelForm
+from django.shortcuts import render_to_response, render
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, logout, login
+from django.template import Context, loader, RequestContext
+from QSabeApp import summarize
+from django.core.context_processors import csrf
+from django.views.decorators.csrf import *
+from QSabeApp.models import *
+from taggit.models import Tag
+from django.contrib.auth.decorators import login_required
+
+def doLogout(request):
+    logout(request)
+    return HttpResponseRedirect('/qsabe/')
+
+@login_required()
+def goHome(request):
+    return render_to_response("home.html", {'user' : request.user})
+
 
 def main(request):
     questoes = Questoes.objects.all()
@@ -59,7 +75,7 @@ def nova_pergunta(request, pk):
         frase = p["destino"]
         frase = frase.lower()
         tokenizada = nltk.word_tokenize(frase)
-        emtags = nltk.tag.pos_tag(tokenizada)
+        emtags = nltk.pos_tag(tokenizada)
         stopwords = nltk.corpus.stopwords.words('portuguese')
         filtered_words = [w for w in emtags if w not in stopwords]
         #filtra apenas os substantivos

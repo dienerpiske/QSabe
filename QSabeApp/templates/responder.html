@@ -1,4 +1,5 @@
 {% extends "modelo.html" %}
+<meta charset="utf-8" xmlns="http://www.w3.org/1999/xhtml">
 {% block corpo %}
 <!-- Corpo -->
 <div class="container">
@@ -10,7 +11,7 @@
 						<form class="form-signin" role="form" action="{% url 'goResponder' id_pergunta=1 %}" method="POST">
 							{% csrf_token %}
 							<div class="panel-body">
-								<h2>Aqui ira aparecer a pergunta que sera respondida.</h2>
+								<h2>Aqui irá aparecer a pergunta que sera respondida.</h2>
 								<h4>Aqui ira aparecer algumas informacoes complementares a
 									respeito da pergunta para que o usuario ira responder</h4>
 								<h6>Area de conhecimento.</h6>

@@ -10,21 +10,22 @@ class FormPerguntas(forms.ModelForm):
 
     tags = forms.CharField(max_length=30, required=False)
 
-class QuestoesAdmin(admin.ModelAdmin):
-    pass
-
 class PerguntaAdmin(admin.ModelAdmin):
     form = FormPerguntas
 
+class ComentarioAdmin(admin.ModelAdmin):
+    search_fields = ["texto", "criador"]
+    list_display = ["texto", "resposta", "criador", "dtCriacao"]
+
 class RespostaAdmin(admin.ModelAdmin):
-    search_fields = ["titulo", "criador"]
-    list_display = ["titulo", "pergunta", "criador", "dtCriacao"]
+    search_fields = ["texto", "criador"]
+    list_display = ["texto", "pergunta", "criador", "dtCriacao"]
 
 class PerfilUsuarioAdmin(admin.ModelAdmin):
-    search_fields = ["especialidades"]
-    list_display = ["usuario", "postagens", "especialidades"]
+    search_fields = ["usuario"]
+    list_display = ["usuario","lattes"]
 
-admin.site.register(Questoes, QuestoesAdmin)
+admin.site.register(Comentario, ComentarioAdmin)
 admin.site.register(Pergunta, PerguntaAdmin)
 admin.site.register(Resposta, RespostaAdmin)
 admin.site.register(PerfilUsuario, PerfilUsuarioAdmin)

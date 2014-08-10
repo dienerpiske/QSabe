@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import nltk
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render
@@ -9,6 +10,7 @@ from django.template import Context, loader, RequestContext
 from QSabeApp import summarize
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import *
+from django.db import IntegrityError
 from QSabeApp.models import *
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
@@ -20,6 +22,57 @@ def doLogout(request):
 @login_required()
 def goHome(request):
     return render_to_response("home.html", {'user' : request.user})
+
+@login_required()
+def goAreas(request):
+    return render_to_response("areas.html", {'user' : request.user})
+
+@login_required()
+def goPergunta(request, id_pergunta):
+    return render_to_response("pergunta.html", {'user' : request.user})
+
+@csrf_exempt
+@login_required()
+def goPerguntar(request):
+    return render_to_response("perguntar.html", {'user' : request.user})
+
+@csrf_exempt
+@login_required()
+def goResponder(request, id_pergunta):
+    return render_to_response("responder.html", {'user' : request.user})
+
+@csrf_exempt
+def goCadastrar(request):
+    sucess_message = ''
+    error_message = ''
+    
+    try:  
+        if request.POST:
+            usuario = User()
+            usuario.first_name = request.POST['primeiroNome']
+            usuario.last_name = request.POST['ultimoNome']
+            usuario.username = request.POST['nomeUsuario']
+            usuario.email = request.POST['emailUsuario']
+            usuario.set_password(request.POST['senhaUsuario'])
+            
+            usuario.save()
+            
+            sucess_message = 'Usu�rio Cadastrado com Sucesso!'
+    
+    except IntegrityError:
+        error_message = 'Usu�rio j� existe!'
+        return render(request,'cadastrar.html',{'error_message' : error_message})
+      
+    return render(request,'cadastrar.html',{'sucess_message' : sucess_message})
+
+
+
+
+
+
+
+
+
 
 
 def main(request):

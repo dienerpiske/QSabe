@@ -6,8 +6,8 @@
         <meta charset="utf-8" xmlns="http://www.w3.org/1999/xhtml">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Projeto QSabe">
+        <meta name="author" content="Diener Maick Piske">
         <title>{% block titulo %}QSabe - v2.0{% endblock %}</title>
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -35,20 +35,32 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Home</a>
+                            <a href="/qsabe/home/">Home</a>
                         </li>
                         <li>
-                            <a href="#about">&Aacute;reas</a>
+                            <a href="/qsabe/areas/">&Aacute;reas</a>
                         </li>
                         <li>
-                            <a href="#contact">Grupos</a>
+                            <a href="/qsabe/perguntar/">Perguntar</a>
                         </li>
-                        <li>
-                            <a href="#">Perguntar</a>
-                        </li>
+                        
+                        	<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Testes <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="testes">
+                <li><a href="/qsabe/home/">Home</a></li>
+                <li><a href="/qsabe/cadastrar/">Cadastrar</a></li>
+                <li><a href="/qsabe/areas/">Areas</a></li>
+                <li class="divider"></li>
+                <li><a href="/qsabe/pergunta/1/">Pergunta</a></li>
+                <li><a href="/qsabe/perguntar/">Perguntar</a></li>
+                <li><a href="/qsabe/responder/1/">Responder</a></li>
+              </ul>
+            </li>
+                            
+                        
                         {% if user.is_staff %}
                         <li>
-                            <a href="/admin">Painel de Administração</a>
+                            <a href="/admin/">Painel de Administração</a>
                         </li>
                 		{% endif %}
                     </ul>

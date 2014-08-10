@@ -1,78 +1,40 @@
-<!doctype html>
-
-<html lang="pt">
-  
-  <head>
-    <meta charset="utf-8" xmlns="http://www.w3.org/1999/xhtml">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content>
-    <meta name="author" content>
-    <title>QSabe - v2.0</title>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  </head>
-  
-  <body>{% dajaxice_js_import %}
-    <style type="text/css">
-      body {
-        padding-top: 70px;
-        padding-bottom: 20px;
-      }
-    </style>
-    <!-- Menu -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header" height="50">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">QSabe</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#about">&Aacute;reas</a>
-            </li>
-            <li>
-              <a href="#contact">Grupos</a>
-            </li>
-            <li>
-              <a href="#">Perguntar</a>
-            </li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Senha" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Entrar</button>
-          </form>
-        </div>
-        <!--/.navbar-collapse -->
-      </div>
-    </div>
-    <!-- Fim Menu -->
-    <!-- Corpo -->
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-4 col-lg-4">
-          <div id="divareas">
-            <div id="lgareas" class="list-group">
-              <a href="#" class="list-group-item active">&Aacute;reas de Conhecimento:</a>{% for fic in fichamentos %}
-              <div id="liareas" class="list-group-item">{{fic.titulo_fichamento}}
-                <a class="btn pull-right btn-default btn-xs" href="/sabia/fichamento/{{fic.id}}/"><i class="fa fa-file-o"></i><font face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
-              </div>{% endfor %}
-              <a class="list-group-item active"></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-8 col-lg-4">
-          <div id="divperguntas">
-            <input id="buscaperguntas type=" text " class="form-control " placeholder="Aperte Enter " onkeypress="buscarPerguntas(event) ">            <div id="lgperguntas " class="list-group ">            <a href="# " class="list-group-item active ">Questionamentos:</a>            {% for art in artigos %}            <div id="liperguntas " class="list-group-item ">              {{art.titulo_artigo}}              <a class="btn pull-right btn-default btn-xs " href="/sabia/artigo/{{art.id}}/ "><i class="fa fa-file-o "></i><font face="FontAwesome "><span style="line-height: 15px; ">&nbsp;Ver</span></font></a>            </div>            {% endfor %}            <a class="list-group-item active "></a>          </div>        </div>      </div>                        </div>    <!-- Fim Corpo -->    <!-- Sobre -->    <div class="modal fade " id="modal-container-171317 " role="dialog " aria-labelledby="myModalLabel " aria-hidden="true ">      <div class="modal-dialog ">        <div class="modal-content ">          <div class="modal-header ">            <button type="button " class="close " data-dismiss="modal " aria-hidden="true ">x</button>            <h4 class="modal-title " id="myModalLabel ">						Remake Qsabe by:					</h4>          </div>          <div class="modal-body ">            <p>Diener [dienermaickpiske@gmail.com]</p>            <p>Enza [rafaeladenadai@gmail.com]</p>            <p>Marlon [marlonferrari@gmail.com]</p><br>            <p>Mestrandos UFES</p>          </div>          <div class="modal-footer ">            <button type="button " class="btn btn-default " data-dismiss="modal ">Fechar</button>          </div>        </div>      </div>    </div>    <!-- Fim Sobre -->    <!-- Rodape -->    <div id="footer " class="container ">      <nav class="navbar navbar-inverse navbar-static-bottom ">        <div class="navbar-inner navbar-content-center ">          <br>          <p class="text-muted credit " align="center ">&copy; 2014 - Sabi&aacute; v2.0 - Code 4Love (S2).</p>        </div>      </nav>    </div>    <!-- Fim Rodape -->  </div></body></html>
+{% extends "modelo.html" %}
+{% block corpo %}
+<!-- Corpo -->
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-lg-4">
+			<div id="divareas">
+				<div id="lgareas" class="list-group">
+					<a href="#" class="list-group-item active">&Aacute;reas de
+						Conhecimento:</a>{% for fic in fichamentos %}
+					<div id="liareas" class="list-group-item">
+						{{fic.titulo_fichamento}} <a
+							class="btn pull-right btn-default btn-xs"
+							href="/sabia/fichamento/{{fic.id}}/"><i class="fa fa-file-o"></i><font
+							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
+					</div>
+					{% endfor %} <a class="list-group-item active"></a>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-4 col-lg-8">
+			<div id="divperguntas">
+				<input id="buscaperguntas type=" text " class="form-control "
+					placeholder="Aperte Enter " onkeypress="buscarPerguntas(event) ">
+				<div id="lgperguntas " class="list-group ">
+					<a href="# " class="list-group-item active ">Questionamentos:</a>
+					{% for art in artigos %}
+					<div id="liperguntas " class="list-group-item ">
+						{{art.titulo_artigo}} <a
+							class="btn pull-right btn-default btn-xs "
+							href="/sabia/artigo/{{art.id}}/ "><i class="fa fa-file-o "></i><font
+							face="FontAwesome "><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
+					</div>
+					{% endfor %} <a class="list-group-item active "></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Fim Corpo -->
+{% endblock %}

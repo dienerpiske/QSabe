@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
@@ -5,7 +6,7 @@ from django.db.models.signals import post_save
 from QSabeApp import summarize
 from nltk.corpus import stopwords
 from nltk import FreqDist
-from SabiaApp.similarity import similarity, vetores
+from QSabeApp.similarity import similarity, vetores
 
 
 class Area(models.Model):

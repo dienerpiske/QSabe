@@ -50,3 +50,17 @@ def positivarresposta(request, idr):
     pergunta.likes = likes
     pergunta.save()
     return simplejson.dumps({'likes': likes})
+
+@dajaxice_register
+def salvarcomentario(request, id_resposta, texto):
+    comentario = Comentario()
+    comentario.texto = texto
+    comentario.resposta = Resposta.objects.get(id = id_resposta)
+    comentario.criador = request.user
+    comentario.save()
+    return crialgmarcacao(comentario.resposta)
+
+def crialgmarcacao(resposta):
+    comentarios = resposta.comentario_set.all()
+    listgroup = render_to_string('div_lg_comentarios.html', {'comentarios': comentarios})
+    return simplejson.dumps({'listgroup': listgroup})

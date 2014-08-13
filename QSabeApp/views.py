@@ -23,7 +23,7 @@ def doLogout(request):
 def goHome(request):
     u = request.user
     perguntas = Pergunta.usuario_set.all()
-    interessantes = Pergunta.objects.all()[5]
+    interessantes = Pergunta.objects.all()[:5]
     tarefas = Tarefa.usuario_set.all()
     return render_to_response("home.html", {'user' : u, 'tarefas' : tarefas, 'interessantes':interessantes, 'perguntas':perguntas})
 
@@ -41,7 +41,7 @@ def goArea(request, idArea):
 @login_required()
 def goPergunta(request, idPergunta):
     pergunta = Pergunta.objects.get(id= idPergunta)
-    semelhantes = Pergunta.objects.all()[5]
+    semelhantes = Pergunta.objects.all()[:5]
     return render_to_response("pergunta.html", {'user' : request.user, 'pergunta': pergunta, 'semelhantes': semelhantes})
 
 def gerarTags(frase):

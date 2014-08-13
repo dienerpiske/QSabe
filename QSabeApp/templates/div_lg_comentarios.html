@@ -1,0 +1,4 @@
+{% for comentario in respostas %}
+	<div id="{{comentario.id}}" class="list-group-item">{{comentario.texto}}<a id="btn_coment_{{comentario.id}}" class="btn pull-right btn-default btn-xs" onclick=""><i class="fa fa-file-o"></i><font face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
+	</div>
+{% endfor %}

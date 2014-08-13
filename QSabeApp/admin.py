@@ -21,11 +21,13 @@ class RespostaAdmin(admin.ModelAdmin):
     search_fields = ["texto", "criador"]
     list_display = ["texto", "pergunta", "criador", "dtCriacao"]
 
-class PerfilUsuarioAdmin(admin.ModelAdmin):
-    search_fields = ["usuario"]
-    list_display = ["usuario","lattes"]
+class UsuarioAdmin(admin.ModelAdmin):
+    search_fields = ["user"]
+    list_display = ["user","sobre"]
 
 admin.site.register(Comentario, ComentarioAdmin)
 admin.site.register(Pergunta, PerguntaAdmin)
 admin.site.register(Resposta, RespostaAdmin)
-admin.site.register(PerfilUsuario, PerfilUsuarioAdmin)
+admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(Area)
+admin.site.register(Tarefa)

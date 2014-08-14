@@ -144,5 +144,13 @@ def rotearPergunta(sender, **kwargs):
         t.usuario = User.objects.get(id=1)
         t.save()
 
+def verificarTarefa(sender, **kwargs):
+    r = kwargs["instance"]
+    p = r.pergunta
+    ts = p.tarefa_set.all()
+    for t in ts:
+        t.delete()
+
+post_save.connect(verificarTarefa, sender=Resposta)
 post_save.connect(rotearPergunta, sender=Pergunta)
 post_save.connect(cria_perfil_usuario, sender=User)

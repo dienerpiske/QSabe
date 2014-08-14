@@ -6,18 +6,28 @@ from django.template.loader import render_to_string
 from QSabeApp.bing import MicrosoftTranslatorClient
 
 @dajaxice_register
-def traduzir(request, texto, de, para):
+def traduzir(request, titulo, descricao):
     detectlanguage.configuration.api_key = "f2d7fc33a7f3cb0b045d83b6a4c36ad9"
-    msg = detectlanguage.simple_detect(texto)
+    de = detectlanguage.simple_detect(titulo)
     client = MicrosoftTranslatorClient('sabialiedufes', 'HyJ6rFaIeEPd9q7ZjrWaixrKIUuAXuxIAroGL6YpRl8=')
-    t =  client.TranslateText(texto.encode('utf-8'), msg, para)
-    return simplejson.dumps({'texto' : t})
+    t =  client.TranslateText(titulo.encode('utf-8'), de, 'pt')
+    d =  client.TranslateText(descricao.encode('utf-8'), de, 'pt')
+    return simplejson.dumps({'titulo' : t, 'descricao':d})
 
 @dajaxice_register
-def searchperguntas(request, busca):
-    perguntas = Pergunta.objects.all().filter(titulo__icontains=busca)
+def searchminhasperguntas(request, busca):
+    perguntas = Pergunta.objects.filter(criador = request.user).filter(titulo__icontains=busca)
+    listgroup = render_to_string('div_lg_minhas_perguntas.html', {'perguntas': perguntas})
+    return simplejson.dumps({'listgroup': listgroup})
+
+@dajaxice_register
+def searchperguntas(request, busca, idArea):
+    perguntas = Pergunta.objects.filter(titulo__icontains=busca)
+    if idArea is not None:
+        perguntas = perguntas.filter(area = Area.objects.get(id = idArea))
     listgroup = render_to_string('div_lg_perguntas.html', {'perguntas': perguntas})
     return simplejson.dumps({'listgroup': listgroup})
+
 
 @dajaxice_register
 def negativarpergunta(request, idp):

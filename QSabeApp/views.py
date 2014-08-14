@@ -32,7 +32,8 @@ def goHome(request):
 def goAreas(request):
     areas = Area.objects.all()
     perguntas = Pergunta.objects.all()[:10]
-    return render_to_response("areas.html", {'user' : request.user,'areas' : areas, 'perguntas':perguntas})
+    area = None
+    return render_to_response("areas.html", {'user' : request.user,'areas' : areas, 'area':area, 'perguntas':perguntas})
 
 @login_required()
 def goArea(request, idArea):

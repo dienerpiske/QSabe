@@ -2,6 +2,17 @@
 <meta charset="utf-8" xmlns="http://www.w3.org/1999/xhtml">
 {% block corpo %}
 <!-- Corpo -->
+<script language=javascript>
+function mudatextopergunta(data){
+	document.getElementById('perguntatitulo').textContent  = data.titulo;
+	document.getElementById('perguntadescricao').textContent  = data.descricao;
+}
+
+function traduz(e){
+	Dajaxice.QSabeApp.traduzir(mudatextopergunta,{'titulo':document.getElementById('perguntatitulo').textContent ,'descricao':document.getElementById('perguntadescricao').textContent});
+}
+</script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3 col-lg-4" align="center">

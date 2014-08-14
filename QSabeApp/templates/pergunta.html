@@ -1,6 +1,17 @@
 {% extends "modelo.html" %}
 <meta charset="utf-8" xmlns="http://www.w3.org/1999/xhtml"> 
 {% block corpo %}
+<script language=javascript>
+function mudatextopergunta(data){
+	document.getElementById('perguntatitulo').textContent  = data.titulo;
+	document.getElementById('perguntadescricao').textContent  = data.descricao;
+}
+
+function traduz(e){
+	Dajaxice.QSabeApp.traduzir(mudatextopergunta,{'titulo':document.getElementById('perguntatitulo').textContent ,'descricao':document.getElementById('perguntadescricao').textContent});
+}
+</script>
+
     <!-- Corpo -->
     <div class="container">
       <div class="row">
@@ -8,8 +19,8 @@
           <div id="divperguntas">
           	<div>
           	{% if pergunta %}
-	            <h2>{{ pergunta.titulo }}</h2>
-				<h4>{{ pergunta.descricao }}</h4>
+	            <h2 name = 'perguntatitulo' id = 'perguntatitulo'>{{ pergunta.titulo }}</h2>
+				<h4 name = 'perguntadescricao' id = 'perguntadescricao'>{{ pergunta.descricao }}</h4>
 				<h6>Área: {{ pergunta.area }} 
 				Autor: {{ pergunta.criador }} 
 				Tags: 
@@ -17,6 +28,7 @@
 					{{tag}}
 				{% endfor %}</h6>
 				<a class="btn btn-success" href="/qsabe/pergunta/{{pergunta.id}}/responder/"><i class="fa fa-file-o"></i><font face="FontAwesome"><span style="line-height: 15px;">&nbsp;Responder</span></font></a>
+				<a class="btn btn-success" onclick="traduz()"><i class="fa fa-file-o"></i><font face="FontAwesome"><span style="line-height: 15px;">&nbsp;Traduzir</span></font></a>
 	        {% endif %}
 	        </div>
             <div id="lgrespostas" class="list-group">

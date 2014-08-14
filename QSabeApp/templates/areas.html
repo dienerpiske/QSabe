@@ -2,6 +2,33 @@
 <meta charset="utf-8" xmlns="http://www.w3.org/1999/xhtml">
 {% block corpo %}
 <!-- Corpo -->
+<script language=javascript>
+function mudatextopergunta(data){
+	document.getElementById('perguntatitulo').textContent  = data.titulo;
+	document.getElementById('perguntadescricao').textContent  = data.descricao;
+}
+
+function traduz(e){
+	Dajaxice.QSabeApp.traduzir(mudatextopergunta,{'titulo':document.getElementById('perguntatitulo').textContent ,'descricao':document.getElementById('perguntadescricao').textContent});
+}
+
+function buscarArtigo(e){
+	if (e.keyCode == 13) {
+		Dajaxice.SabiaApp.searchartigos(atualizaPerguntas,{'busca':document.getElementById('buscaartigos').value, 'idArea':idArea});
+	}
+}
+
+function atualizaPerguntas(data){
+    if(data!=Dajaxice.EXCEPTION){
+        document.getElementById('divfichamento').innerHTML = data.listgroup;
+    }
+    else{
+        alert('Error');
+    }
+}
+
+</script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-xs-4 col-lg-4">
@@ -24,7 +51,7 @@
 				<input id="buscaperguntas type=" text " class="form-control "
 					placeholder="Aperte Enter " onkeypress="buscarPerguntas(event) ">
 				<div id="lgperguntas " class="list-group ">
-					<a href="# " class="list-group-item active ">Questionamentos:</a>
+					<a href="# " class="list-group-item active ">Perguntas:</a>
 					{% for p in perguntas %}
 					<div id="liperguntas " class="list-group-item ">
 						{{ p }} <a

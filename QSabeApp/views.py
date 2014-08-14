@@ -97,8 +97,8 @@ def goResponder(request, idPergunta):
         if request.POST:
             post = request.POST
             r = Resposta()
-            r.texto = post['texto']
-            r.fonte = post['fonte']
+            r.texto = post['tbxresposta']
+            r.fonte = post['tbxfonte']
             r.criador = request.user
             r.likes = 0
             r.tags = gerarTags(r.texto)
@@ -109,9 +109,9 @@ def goResponder(request, idPergunta):
             return HttpResponseRedirect(reverse("goPergunta", args=[perg.id]))
     except IntegrityError:
         message = 'Desculpe ocorreu um erro! Tente novamente.'
-        return render(request,'cadastrar.html',{'error_message' : message})
+        return render(request,'responder.html',{'user' : request.user, 'error_message' : message, 'pergunta': perg})
     
-    return render_to_response("responder.html", {'user' : request.user, 'sucess_message' : message})
+    return render_to_response("responder.html", {'user' : request.user, 'pergunta': perg, 'sucess_message' : message})
 
 @csrf_exempt
 def goCadastrar(request):

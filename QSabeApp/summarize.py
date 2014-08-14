@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
 from __future__ import print_function
@@ -27,7 +28,7 @@ def u(s):
         return s
     else:
         # not well documented but seems to work
-        return codecs.unicode_escape_decode(s)[0]
+        return s #codecs.unicode_escape_decode(s)[0]
 
 
 def is_unimportant(word):
@@ -93,7 +94,7 @@ class Summary(object):
         return 'Summary({}, {}, {}, {})'.format(repr(self.url), repr(self.article_html), repr(self.title), repr(self.summaries))
 
     def __unicode__(self):
-        return u('{} - {}\n\n{}'.format(self.title, self.url, '\n'.join(self.summaries)))
+        return self.summaries #u('{} - {}\n\n{}'.format(self.title, self.url, '\n'.join(self.summaries)))
 
     def __str__(self):
         if _IS_PYTHON_3:

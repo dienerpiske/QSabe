@@ -29,6 +29,7 @@
 			<p style></p>
 		</div>
 		<div class="col-xs-4 col-lg-4">
+		<div class="col-xs-4 col-lg-12">
 			<div id="divpendencias">
 				<div id="lgpendencias" class="list-group">
 					<a href="#" class="list-group-item active">Pendências:</a>
@@ -41,6 +42,22 @@
 					{% endfor %} <a class="list-group-item active"></a>
 				</div>
 			</div>
+		</div>
+		<div class="col-xs-4 col-lg-12">
+			<div id="divrecomenda">
+				<div id="lgrecomenda" class="list-group">
+					<a href="#" class="list-group-item active">Perguntas
+						interessantes:</a>
+						{% for legal in interessantes %}
+						<div id="lirecomenda" class="list-group-item">
+							{{legal}} <a class="btn pull-right btn-default btn-xs"
+							href="/qsabe/pergunta/{{legal.id}}/"><i class="fa fa-file-o"></i><font
+							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
+					</div>
+					{% endfor %} <a class="list-group-item active"></a>
+				</div>
+			</div>
+		</div>
 		</div>
 		<div class="col-xs-4 col-lg-4">
 			<div id="divperguntas">
@@ -58,21 +75,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-4 col-lg-4">
-			<div id="divrecomenda">
-				<div id="lgrecomenda" class="list-group">
-					<a href="#" class="list-group-item active">Perguntas
-						interessantes:</a>
-						{% for legal in interessantes %}
-						<div id="lirecomenda" class="list-group-item">
-							{{legal}} <a class="btn pull-right btn-default btn-xs"
-							href="/qsabe/pergunta/{{legal.id}}/"><i class="fa fa-file-o"></i><font
-							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
-					</div>
-					{% endfor %} <a class="list-group-item active"></a>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 </div>
 <!-- Fim Corpo -->

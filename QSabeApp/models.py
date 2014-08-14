@@ -35,7 +35,7 @@ class Pergunta(models.Model):
             return self.resposta_set.order_by("dtCriacao")[0]
 
     def __unicode__(self):
-        return summarize.summarize_text(self.titulo)
+        return self.titulo #summarize.summarize_text(self.titulo)
     
     
     def getTitulosSemelhantes(self):
@@ -47,7 +47,7 @@ class Pergunta(models.Model):
         aux1 = vetores(titulo1)
 
         for  i in range(0,len(perguntaBD)):            
-            titulo2 = perguntaBD[i].titulo_artigo.lower()
+            titulo2 = perguntaBD[i].titulo.lower()
             aux2 = vetores(titulo2)
             
             if self.id != perguntaBD[i].id and similarity(aux1, aux2):
@@ -86,7 +86,7 @@ class Pergunta(models.Model):
         
         # coloca as palavras mais frequentes do texto na variavel palavrasChaves
         for i in range(0,len(items)):
-            palavrasChaves.append(items[i][0].upper())
+            palavrasChaves.append(items[i][0])
             
         return palavrasChaves        
 
@@ -104,7 +104,7 @@ class Resposta(models.Model):
     
     def __unicode__(self):
         #Colocar sumarizacao
-        return summarize.summarize_text(self.texto)
+        return self.texto #summarize.summarize_text(self.texto)
 
 class Comentario(models.Model):
     texto = models.TextField()
@@ -113,7 +113,7 @@ class Comentario(models.Model):
     resposta = models.ForeignKey(Resposta)
     
     def __unicode__(self):
-        return u"{%s - %s - %s}" % (self.criador, self.resposta, self.texto)
+        return u"{%s por %s}" % (self.texto, self.criador)
 
 class Usuario(models.Model):
     user = models.ForeignKey(User, unique=True)

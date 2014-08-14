@@ -8,13 +8,21 @@
 			<div class="row clearfix">
 				<div class="col-md-12 column">
 					<div class="panel panel-default top-margin-low1">
-						<form class="form-signin" role="form" action="{% url 'goResponder' id_pergunta=1 %}" method="POST">
+						<form class="form-signin" role="form" action="{% url 'goResponder' pergunta.id  %}" method="POST">
 							{% csrf_token %}
 							<div class="panel-body">
-								<h2>Aqui irá aparecer a pergunta que sera respondida.</h2>
-								<h4>Aqui ira aparecer algumas informacoes complementares a
-									respeito da pergunta para que o usuario ira responder</h4>
-								<h6>Area de conhecimento.</h6>
+								<div>
+					          	{% if pergunta %}
+						            <h2>{{ pergunta.titulo }}</h2>
+									<h4>{{ pergunta.descricao }}</h4>
+									<h6>Área: {{ pergunta.area }} 
+									Autor: {{ pergunta.criador }} 
+									Tags: 
+									{% for tag in pergunta.palavrasChaves %}
+										{{tag}}
+									{% endfor %}</h6>
+						        {% endif %}
+						        </div>
 								Sua resposta:<br>
 								<textarea name="tbxresposta" rows="3" id="tbxresposta"
 									class="form-control" style="height: 200px; width: 100%;"

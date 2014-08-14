@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//QSabeApp/models.py=utf-8
 encoding//QSabeApp/similarity.py=utf-8
+encoding//QSabeApp/summarize.py=utf-8
 encoding//QSabeApp/views.py=utf-8

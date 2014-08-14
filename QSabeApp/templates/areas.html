@@ -3,24 +3,17 @@
 {% block corpo %}
 <!-- Corpo -->
 <script language=javascript>
-function mudatextopergunta(data){
-	document.getElementById('perguntatitulo').textContent  = data.titulo;
-	document.getElementById('perguntadescricao').textContent  = data.descricao;
-}
 
-function traduz(e){
-	Dajaxice.QSabeApp.traduzir(mudatextopergunta,{'titulo':document.getElementById('perguntatitulo').textContent ,'descricao':document.getElementById('perguntadescricao').textContent});
-}
-
-function buscarArtigo(e){
+function buscarPerguntas(e){
 	if (e.keyCode == 13) {
-		Dajaxice.SabiaApp.searchartigos(atualizaPerguntas,{'busca':document.getElementById('buscaartigos').value, 'idArea':idArea});
+		busca = document.getElementById('buscaperguntas').value
+		Dajaxice.QSabeApp.searchperguntas(atualizaPerguntas,{'busca':busca, 'idarea':{% if area %} {{area.id}} {% else %} '0' {% endif %}});
 	}
 }
 
 function atualizaPerguntas(data){
     if(data!=Dajaxice.EXCEPTION){
-        document.getElementById('divfichamento').innerHTML = data.listgroup;
+        document.getElementById('divperguntas').innerHTML = data.listgroup;
     }
     else{
         alert('Error');
@@ -47,9 +40,9 @@ function atualizaPerguntas(data){
 			</div>
 		</div>
 		<div class="col-xs-4 col-lg-8">
-			<div id="divperguntas">
-				<input id="buscaperguntas type=" text " class="form-control "
+		<input id="buscaperguntas" type="text" class="form-control "
 					placeholder="Aperte Enter " onkeypress="buscarPerguntas(event) ">
+			<div id="divperguntas">
 				<div id="lgperguntas " class="list-group ">
 					<a href="# " class="list-group-item active ">Perguntas:</a>
 					{% for p in perguntas %}

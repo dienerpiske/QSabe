@@ -3,13 +3,21 @@
 {% block corpo %}
 <!-- Corpo -->
 <script language=javascript>
-function mudatextopergunta(data){
-	document.getElementById('perguntatitulo').textContent  = data.titulo;
-	document.getElementById('perguntadescricao').textContent  = data.descricao;
+
+function buscarPerguntas(e){
+	if (e.keyCode == 13) {
+		busca = document.getElementById('buscaperguntas').value
+		Dajaxice.QSabeApp.searchminhasperguntas(atualizaPerguntas,{'busca':busca});
+	}
 }
 
-function traduz(e){
-	Dajaxice.QSabeApp.traduzir(mudatextopergunta,{'titulo':document.getElementById('perguntatitulo').textContent ,'descricao':document.getElementById('perguntadescricao').textContent});
+function atualizaPerguntas(data){
+    if(data!=Dajaxice.EXCEPTION){
+        document.getElementById('divperguntas').innerHTML = data.listgroup;
+    }
+    else{
+        alert('Error');
+    }
 }
 </script>
 
@@ -71,9 +79,9 @@ function traduz(e){
 		</div>
 		</div>
 		<div class="col-xs-4 col-lg-4">
-			<div id="divperguntas">
-				<input id="buscaperguntas type=" text" class="form-control"
+				<input id="buscaperguntas" type=" text" class="form-control"
 					placeholder="Aperte Enter" onkeypress="buscarPerguntas(event)">
+			<div id="divperguntas">
 				<div id="lgperguntas" class="list-group">
 					<a href="#" class="list-group-item active">Minhas perguntas:</a>
 					{% for pergunta in perguntas %}

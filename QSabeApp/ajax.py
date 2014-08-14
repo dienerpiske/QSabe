@@ -16,15 +16,16 @@ def traduzir(request, titulo, descricao):
 
 @dajaxice_register
 def searchminhasperguntas(request, busca):
+    print("Minhas perguntas Home")
     perguntas = Pergunta.objects.filter(criador = request.user).filter(titulo__icontains=busca)
     listgroup = render_to_string('div_lg_minhas_perguntas.html', {'perguntas': perguntas})
     return simplejson.dumps({'listgroup': listgroup})
 
 @dajaxice_register
-def searchperguntas(request, busca, idArea):
+def searchperguntas(request, busca, idarea):
     perguntas = Pergunta.objects.filter(titulo__icontains=busca)
-    if idArea is not None:
-        perguntas = perguntas.filter(area = Area.objects.get(id = idArea))
+    if idarea != '0':
+        perguntas = perguntas.filter(area = Area.objects.get(id = idarea))
     listgroup = render_to_string('div_lg_perguntas.html', {'perguntas': perguntas})
     return simplejson.dumps({'listgroup': listgroup})
 

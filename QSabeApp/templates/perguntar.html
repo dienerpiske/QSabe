@@ -10,23 +10,18 @@
 					<div class="panel panel-default top-margin-low1">
 						<h2>Possui alguma duvida? Fique a vontade todos terao enorme
 							prazer em ajuda-lo a encontrar a melhor resposta.</h2>
-						<form class="form-signin" role="form" action="{% url 'goPerguntar' %}" method="POST">
+						<form class="form-signin" role="form" action="{% url 'goPerguntar' idArea %}" method="POST">
 							{% csrf_token %}
 							<div class="panel-body">
 								Pergunta:<br>
 								<textarea name="tbxpergunta" rows="3" id="tbxpergunta"
 									class="form-control" style="height: 100px; width: 100%;"
 									placeholder="Insira aqui sua duvida de forma clara e objetiva."></textarea>
-								<br> Outras Informa&ccedil;&otilde;es:<br>
-								<textarea name="tbxpergunta" rows="3" id="tbxpergunta"
+								<br> Outras Informações:<br>
+								<textarea name="tbxinfo" rows="3" id="tbxinfo"
 									class="form-control" style="height: 100px; width: 100%;"
 									placeholder="Insira aqui outras informacoes que possam auxiliar na compreensao do seu questionamento."></textarea>
-								<br> &Aacute;rea de Conhecimento: <select
-									class="form-control">
-									<option>Geral</option>
-									<option>Computa&ccedil;&atilde;o</option>
-									<option>Outra</option>
-								</select><br>
+								<br> 
 								<button class="btn btn-primary" type="submit">
 									<i class="fa fa-comment-o"></i> Perguntar
 								</button>

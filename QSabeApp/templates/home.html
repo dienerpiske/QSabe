@@ -11,16 +11,16 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Ol&aacute;, {{ request.user.first_name }}
+						<th>Olá, {{ request.user.first_name }}
 							{{request.user.last_name}}</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{% if usuarioInfo %} {{ usuarioInfo.informacoes_usuario }} {% endif %}</td>
+						<td>{% if perfil %} {{ perfil.sobre }} {% endif %}</td>
 					</tr>
 					<tr>
-						<td>Lattes: <a>Clique aqui</a>
+						<td>Lattes: <a href='http://{% if perfil %}{{ perfil.lattes }}{% endif %}'>Clique aqui</a>
 						</td>
 					</tr>
 				</tbody>
@@ -31,12 +31,12 @@
 		<div class="col-xs-4 col-lg-4">
 			<div id="divpendencias">
 				<div id="lgpendencias" class="list-group">
-					<a href="#" class="list-group-item active">Pend&ecirc;ncias:</a>{% for fic in fichamentos %}
-					<div id="lipendencias" class="list-group-item">
-						{{fic.titulo_fichamento}} <a
-							class="btn pull-right btn-default btn-xs"
-							href="/sabia/fichamento/{{fic.id}}/"><i class="fa fa-file-o"></i><font
-							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
+					<a href="#" class="list-group-item active">Pendências:</a>
+					{% for tarefa in tarefas %}
+						<div id="lipendencias" class="list-group-item">
+						{{tarefa.pergunta}} <a class="btn pull-right btn-default btn-xs"
+							href="/qsabe/pergunta/{{tarefa.pergunta.id}}/"><i class="fa fa-file-o"></i><font
+							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Responder</span></font></a>
 					</div>
 					{% endfor %} <a class="list-group-item active"></a>
 				</div>
@@ -47,10 +47,11 @@
 				<input id="buscaperguntas type=" text" class="form-control"
 					placeholder="Aperte Enter" onkeypress="buscarPerguntas(event)">
 				<div id="lgperguntas" class="list-group">
-					<a href="#" class="list-group-item active">Minhas perguntas:</a> {% for art in artigos %}
-					<div id="liperguntas" class="list-group-item">
-						{{art.titulo_artigo}} <a class="btn pull-right btn-default btn-xs"
-							href="/sabia/artigo/{{art.id}}/"><i class="fa fa-file-o"></i><font
+					<a href="#" class="list-group-item active">Minhas perguntas:</a>
+					{% for pergunta in perguntas %}
+						<div id="liperguntas" class="list-group-item">
+						{{pergunta}} <a class="btn pull-right btn-default btn-xs"
+							href="/qsabe/pergunta/{{pergunta.id}}/"><i class="fa fa-file-o"></i><font
 							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
 					</div>
 					{% endfor %} <a class="list-group-item active"></a>
@@ -61,10 +62,11 @@
 			<div id="divrecomenda">
 				<div id="lgrecomenda" class="list-group">
 					<a href="#" class="list-group-item active">Perguntas
-						interessantes:</a>{% for art in artigos %}
-					<div id="lirecomenda" class="list-group-item">
-						{{art.titulo_artigo}} <a class="btn pull-right btn-default btn-xs"
-							href="/sabia/artigo/{{art.id}}/"><i class="fa fa-file-o"></i><font
+						interessantes:</a>
+						{% for legal in interessantes %}
+						<div id="lirecomenda" class="list-group-item">
+							{{legal}} <a class="btn pull-right btn-default btn-xs"
+							href="/qsabe/pergunta/{{legal.id}}/"><i class="fa fa-file-o"></i><font
 							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
 					</div>
 					{% endfor %} <a class="list-group-item active"></a>

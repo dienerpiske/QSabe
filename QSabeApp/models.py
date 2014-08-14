@@ -56,10 +56,10 @@ class Pergunta(models.Model):
         return perguntaSim
     
     def palavrasChaves(self):
-        # função da NLTK que retorna as stopwords na lingua inglesa
+        # funï¿½ï¿½o da NLTK que retorna as stopwords na lingua inglesa
         stopE = stopwords.words('english')
 
-        # função da NLTK que retorna as stopwords na lingua portuguesa
+        # funï¿½ï¿½o da NLTK que retorna as stopwords na lingua portuguesa
         stop = stopwords.words('portuguese')  
               
         stopS = stopwords.words('spanish')
@@ -67,13 +67,13 @@ class Pergunta(models.Model):
         palavrasChaves = [] 
         textoArtigo = []
         
-        #retira pontuações do texto e divide o texto em palavras
+        #retira pontuaï¿½ï¿½es do texto e divide o texto em palavras
         for i in self.titulo.lower().replace(',','').replace('.','').replace('-','').replace('(','').replace(')','').split():
-            #retira as stopwords da lingua portuguesa do texto do artigo que está sendo apresentado
+            #retira as stopwords da lingua portuguesa do texto do artigo que estï¿½ sendo apresentado
             if i not in stop:
-                #retira as stopwords da lingua inglesa do texto do artigo que está sendo apresentado
+                #retira as stopwords da lingua inglesa do texto do artigo que estï¿½ sendo apresentado
                 if i not in stopE:
-                    #ignora palavras com menos de 3 caracteres. Isso é para tratar palavras, como por exemplo o verbo "É"
+                    #ignora palavras com menos de 3 caracteres. Isso ï¿½ para tratar palavras, como por exemplo o verbo "ï¿½"
                     if i not in stopS:
                             if len(i) > 2:
                                 textoArtigo.append(i)
@@ -138,11 +138,10 @@ def cria_perfil_usuario(sender, **kwargs):
         
         
 def rotearPergunta(sender, **kwargs):
-    p = kwargs["instance"]
-    if not Pergunta.objects.filter(pergunta=p):
+        p = kwargs["instance"]
         t = Tarefa()
-        t.pergunta = Pergunta(pergunta=p)
-        t.usuario = Usuario.objects.filter(id=1)
+        t.pergunta = p
+        t.usuario = User.objects.get(id=1)
         t.save()
 
 post_save.connect(rotearPergunta, sender=Pergunta)

@@ -22,14 +22,17 @@ def doLogout(request):
 @login_required()
 def goHome(request):
     u = request.user
-    perguntas = Pergunta.usuario_set.all()
+    perfil = u.usuario_set.all()[:0]
+    perguntas = u.pergunta_set.all()
     interessantes = Pergunta.objects.all()[:5]
-    tarefas = Tarefa.usuario_set.all()
-    return render_to_response("home.html", {'user' : u, 'tarefas' : tarefas, 'interessantes':interessantes, 'perguntas':perguntas})
+    tarefas = u.tarefa_set.all()
+    return render_to_response("home.html", {'user' : u,'perfil' : perfil, 'tarefas' : tarefas, 'interessantes':interessantes, 'perguntas':perguntas})
 
 @login_required()
 def goAreas(request):
-    return HttpResponseRedirect('/qsabe/area/1/')
+    areas = Area.objects.all()
+    perguntas = Pergunta.objects.all()[:10]
+    return render_to_response("areas.html", {'user' : request.user,'areas' : areas, 'perguntas':perguntas})
 
 @login_required()
 def goArea(request, idArea):
@@ -52,7 +55,11 @@ def gerarTags(frase):
     filtered_words = [w for w in emtags if w not in stopwords]
     #filtra apenas os substantivos
     substantivos = [word for word,pos in filtered_words if 'N' in pos]
-    tags = [w for w in substantivos if w not in stopwords]
+    tags=""
+    for w in substantivos:
+        if w not in stopwords:
+            tags+=" " + w
+    #tags = [w for w in substantivos if w not in stopwords]
     return tags
 
 @csrf_exempt
@@ -64,28 +71,28 @@ def goPerguntar(request, idArea):
         if request.POST:
             post = request.POST
             p = Pergunta()
-            p.titulo = post['texto']
-            p.descricao = post['fonte']
+            p.titulo = post['tbxpergunta']
+            p.descricao = post['tbxinfo']
             p.criador = request.user
             p.likes = 0
-            p.tags = gerarTags(p.texto)
+            p.tags = gerarTags(p.titulo)
             p.area = Area.objects.get(id = idArea)
             p.save()
             
             sucess_message = 'pergunta enviada com sucesso!'
-    
+            return HttpResponseRedirect(reverse("goPergunta", args=[p.id]))
     
     except IntegrityError:
         message = 'Desculpe ocorreu um erro! Tente novamente.'
         return render(request,'peguntar.html',{'error_message' : message})
     
-    return render_to_response("perguntar.html", {'user' : request.user, 'sucess_message' : message})
+    return render_to_response("perguntar.html", {'user' : request.user, 'sucess_message' : message, 'idArea': idArea})
 
 @csrf_exempt
 @login_required()
-def goResponder(request, id_pergunta):
+def goResponder(request, idPergunta):
     message = ''
-    
+    perg = Pergunta.objects.get(id=idPergunta)
     try:  
         if request.POST:
             post = request.POST
@@ -95,11 +102,11 @@ def goResponder(request, id_pergunta):
             r.criador = request.user
             r.likes = 0
             r.tags = gerarTags(r.texto)
-            r.pergunta = Pergunta.objects.get(id=id_pergunta)
+            r.pergunta = perg
             r.save()
             
             sucess_message = 'Resposta enviada com sucesso!'
-    
+            return HttpResponseRedirect(reverse("goPergunta", args=[perg.id]))
     except IntegrityError:
         message = 'Desculpe ocorreu um erro! Tente novamente.'
         return render(request,'cadastrar.html',{'error_message' : message})

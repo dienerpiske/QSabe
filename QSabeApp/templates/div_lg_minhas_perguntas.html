@@ -1,0 +1,10 @@
+				<div id="lgperguntas" class="list-group">
+					<a href="#" class="list-group-item active">Minhas perguntas:</a>
+					{% for pergunta in perguntas %}
+						<div id="liperguntas" class="list-group-item">
+						{{pergunta}} <a class="btn pull-right btn-default btn-xs"
+							href="/qsabe/pergunta/{{pergunta.id}}/"><i class="fa fa-file-o"></i><font
+							face="FontAwesome"><span style="line-height: 15px;">&nbsp;Ver</span></font></a>
+					</div>
+					{% endfor %} <a class="list-group-item active"></a>
+				</div>
